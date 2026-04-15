@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité — BiblioPotes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #2c1a0e;
+      --ink-light: #7a6040;
+      --paper:     #fdf6e3;
+      --paper-dk:  #f0e8d0;
+      --gold:      #c4992a;
+      --green:     #3d4a38;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+
+    header {
+      background: var(--green);
+      padding: 48px 24px 36px;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: #e8f0dc;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    header p {
+      font-size: 13px;
+      color: #8aaa7e;
+      font-style: italic;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .updated {
+      font-size: 13px;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--paper-dk);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+
+    h2::before {
+      content: '§';
+      color: var(--gold);
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    p { margin-bottom: 16px; color: var(--ink); }
+
+    ul {
+      margin: 0 0 16px 20px;
+      color: var(--ink);
+    }
+
+    ul li { margin-bottom: 6px; }
+
+    a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .highlight {
+      background: var(--paper-dk);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      font-size: 15px;
+      color: var(--ink-light);
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--paper-dk);
+      font-size: 13px;
+      color: var(--ink-light);
+      border-top: 1px solid #e0d4b8;
+    }
+
+    footer a { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">📚 Biblio<span>Potes</span></div>
+  <p>La bibliothèque de tes potes, dans ta poche.</p>
+</header>
+
+<main>
+  <h1>Politique de confidentialité</h1>
+  <p class="updated">Dernière mise à jour : avril 2026</p>
+
+  <div class="highlight">
+    BiblioPotes est une application de partage de livres entre amis. Nous collectons uniquement les données nécessaires au bon fonctionnement de l'app. Vos données ne sont jamais vendues ni partagées avec des tiers à des fins commerciales.
+  </div>
+
+  <h2>Responsable du traitement</h2>
+  <p>BiblioPotes est développée et exploitée à titre personnel. Pour toute question relative à vos données personnelles, vous pouvez nous contacter à l'adresse suivante&nbsp;: <a href="mailto:contact@bibliopotes.fr">contact@bibliopotes.fr</a></p>
+
+  <h2>Données collectées</h2>
+  <p>Dans le cadre de l'utilisation de BiblioPotes, nous collectons les données suivantes&nbsp;:</p>
+  <ul>
+    <li>Adresse email et mot de passe (chiffré)</li>
+    <li>Nom d'utilisateur</li>
+    <li>Photo de profil et image de fond (optionnelles)</li>
+    <li>Genres littéraires préférés (optionnels)</li>
+    <li>Livres ajoutés à votre bibliothèque (titre, auteur, couverture)</li>
+    <li>Photos postées sur le Mur du groupe</li>
+    <li>Activité dans l'application (ajouts, emprunts, retours, commentaires)</li>
+    <li>Tokens de notifications push (pour l'envoi de notifications)</li>
+  </ul>
+
+  <h2>Finalités du traitement</h2>
+  <p>Vos données sont utilisées exclusivement pour&nbsp;:</p>
+  <ul>
+    <li>Créer et gérer votre compte utilisateur</li>
+    <li>Faire fonctionner les fonctionnalités sociales de l'application (groupes, prêts, recommandations)</li>
+    <li>Vous envoyer des notifications liées à l'activité de votre groupe (demandes d'emprunt, retours, recommandations)</li>
+    <li>Améliorer l'expérience utilisateur de l'application</li>
+  </ul>
+
+  <h2>Hébergement et stockage</h2>
+  <p>Toutes vos données sont stockées de manière sécurisée sur les serveurs de <strong>Supabase</strong>, hébergés dans l'Union européenne. Supabase est conforme au RGPD. Vos données ne sont transmises à aucun autre tiers.</p>
+
+  <h2>Notifications push</h2>
+  <p>BiblioPotes utilise les notifications push uniquement pour vous informer d'événements liés à votre activité dans l'application (ex&nbsp;: demande d'emprunt reçue, livre rendu, recommandation). Aucune donnée n'est utilisée à des fins de marketing ou de publicité.</p>
+
+  <h2>Durée de conservation</h2>
+  <p>Vos données sont conservées aussi longtemps que votre compte est actif. En cas de suppression de compte, l'ensemble de vos données personnelles est supprimé dans un délai de 30 jours.</p>
+
+  <h2>Vos droits</h2>
+  <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants&nbsp;:</p>
+  <ul>
+    <li><strong>Droit d'accès</strong> — vous pouvez demander une copie de vos données</li>
+    <li><strong>Droit de rectification</strong> — vous pouvez modifier vos informations directement dans l'application</li>
+    <li><strong>Droit à l'effacement</strong> — vous pouvez supprimer votre compte depuis les paramètres de l'application</li>
+    <li><strong>Droit à la portabilité</strong> — vous pouvez demander l'export de vos données</li>
+    <li><strong>Droit d'opposition</strong> — vous pouvez vous opposer à certains traitements</li>
+  </ul>
+  <p>Pour exercer ces droits, contactez-nous à <a href="mailto:contact@bibliopotes.fr">contact@bibliopotes.fr</a>. Nous nous engageons à répondre dans un délai de 30 jours.</p>
+
+  <h2>Sécurité</h2>
+  <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte ou divulgation. Les mots de passe sont chiffrés et ne sont jamais stockés en clair.</p>
+
+  <h2>Mineurs</h2>
+  <p>BiblioPotes n'est pas destinée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de données personnelles concernant des mineurs de moins de 13 ans.</p>
+
+  <h2>Modifications de la politique</h2>
+  <p>Nous pouvons mettre à jour cette politique de confidentialité ponctuellement. En cas de modification substantielle, vous serez informé via l'application. La date de dernière mise à jour est indiquée en haut de ce document.</p>
+
+  <h2>Contact</h2>
+  <p>Pour toute question concernant cette politique ou vos données personnelles&nbsp;:</p>
+  <p><a href="mailto:contact@bibliopotes.fr">contact@bibliopotes.fr</a></p>
+</main>
+
+<footer>
+  <p>© 2026 BiblioPotes · <a href="mailto:contact@bibliopotes.fr">contact@bibliopotes.fr</a></p>
+  <p style="margin-top:6px;">bibliopotes.fr</p>
+</footer>
+
+</body>
+</html>
