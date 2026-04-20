@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BiblioPotes — Rejoindre un groupe</title>
+  <title>BiblioPotes</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -27,105 +27,106 @@
     }
     .emoji { font-size: 52px; margin-bottom: 20px; display: block; }
     h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #f5f0e8; }
-    .group { font-size: 15px; color: #c4992a; font-style: italic; margin-bottom: 24px; }
+    .sub { font-size: 15px; color: #c4992a; font-style: italic; margin-bottom: 24px; }
     .status { font-size: 14px; color: #8aaa7e; margin-bottom: 28px; min-height: 20px; }
     .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      margin-bottom: 12px;
+      display: block; width: 100%; padding: 14px;
+      border-radius: 12px; font-size: 15px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none; margin-bottom: 12px;
     }
-    .btn-primary { background: #c47c3a; color: #fff; }
+    .btn-primary  { background: #c47c3a; color: #fff; }
     .btn-secondary {
-      background: transparent;
-      color: #8aaa7e;
-      border: 1px solid rgba(255,255,255,0.15);
-      font-size: 13px;
+      background: transparent; color: #8aaa7e;
+      border: 1px solid rgba(255,255,255,0.15); font-size: 13px;
     }
     .footer { margin-top: 28px; font-size: 12px; color: rgba(255,255,255,0.3); }
   </style>
 </head>
 <body>
   <div class="card">
-    <span class="emoji">📚</span>
-    <h1>Tu as été invité sur BiblioPotes</h1>
-    <p class="group" id="groupLabel">Chargement...</p>
+    <span class="emoji" id="emoji">📚</span>
+    <h1 id="title">BiblioPotes</h1>
+    <p class="sub" id="sub"></p>
     <p class="status" id="status">Ouverture de l'application...</p>
-    <a class="btn btn-primary" id="storeBtn" href="#" style="display:none">
-      Télécharger BiblioPotes
-    </a>
-    <a class="btn btn-secondary" id="openBtn" href="#" style="display:none">
-      Ouvrir dans l'app
-    </a>
+    <a class="btn btn-primary"   id="storeBtn" href="#" style="display:none">Télécharger BiblioPotes</a>
+    <a class="btn btn-secondary" id="openBtn"  href="#" style="display:none">Ouvrir dans l'app</a>
     <div class="footer">BiblioPotes · La bibliothèque de tes potes</div>
   </div>
 
   <script>
-    const PLAY_STORE  = 'https://play.google.com/store/apps/details?id=com.arnaud.BiblioPotes'
-    const APP_STORE   = 'https://apps.apple.com/app/bibliopotes/id000000000' // à remplacer après publication iOS
-    const params      = new URLSearchParams(window.location.search)
-    const code        = params.get('code') || ''
+    const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.arnaud.BiblioPotes'
+    const APP_STORE  = 'https://apps.apple.com/app/bibliopotes/id000000000'
 
-    // Détecter l'OS
-    const ua       = navigator.userAgent || ''
-    const isIOS    = /iphone|ipad|ipod/i.test(ua)
+    const params  = new URLSearchParams(window.location.search)
+    const hash    = window.location.hash.substring(1)
+    const hParams = new URLSearchParams(hash)
+
+    const code = params.get('code') || ''
+    const type = params.get('type') || hParams.get('type') || ''
+
+    const ua        = navigator.userAgent || ''
+    const isIOS     = /iphone|ipad|ipod/i.test(ua)
     const isAndroid = /android/i.test(ua)
-    const storeUrl = isIOS ? APP_STORE : PLAY_STORE
+    const storeUrl  = isIOS ? APP_STORE : PLAY_STORE
 
-    // Afficher le code dans le label
-    document.getElementById('groupLabel').textContent =
-      code ? 'Code d\'invitation : ' + code : 'Rejoins le groupe de ton ami'
+    const emojiEl  = document.getElementById('emoji')
+    const titleEl  = document.getElementById('title')
+    const subEl    = document.getElementById('sub')
+    const statusEl = document.getElementById('status')
+    const storeBtn = document.getElementById('storeBtn')
+    const openBtn  = document.getElementById('openBtn')
 
-    // Deep link universel — Android l'intercepte via intentFilters autoVerify
-    // iOS l'intercepte via Universal Links (nécessite apple-app-site-association)
-    const universalLink = 'https://arngui.github.io/bibliopotes-redirect/?code=' + code
+    storeBtn.href = storeUrl
 
-    // Fallback : scheme custom
-    const deepLink = code ? 'bibliopotes://invite?code=' + code : 'bibliopotes://'
-
-    const storeBtnEl = document.getElementById('storeBtn')
-    const openBtnEl  = document.getElementById('openBtn')
-    const statusEl   = document.getElementById('status')
-
-    storeBtnEl.href = storeUrl
-
-    // Stratégie : tenter le deep link, après 2.5s afficher le bouton store
-    function tryOpenApp() {
-      statusEl.textContent = 'Tentative d\'ouverture de l\'app...'
-
-      // On tente le scheme custom — plus fiable que le lien universel pour Android non vérifié
+    function tryOpen(deepLink, fallbackLabel) {
+      statusEl.textContent = "Ouverture de l'app..."
       const iframe = document.createElement('iframe')
       iframe.style.display = 'none'
       iframe.src = deepLink
       document.body.appendChild(iframe)
-
-      // Aussi tenter window.location pour iOS
       setTimeout(() => { window.location = deepLink }, 100)
-
-      // Si l'app ne s'est pas ouverte après 2.5s → afficher les boutons
       setTimeout(() => {
-        statusEl.textContent = 'L\'app ne semble pas installée.'
-        storeBtnEl.style.display = 'block'
-        openBtnEl.style.display  = 'block'
-        openBtnEl.href = deepLink
-        openBtnEl.textContent = 'Réessayer d\'ouvrir l\'app'
+        statusEl.textContent = "L'app ne semble pas installée."
+        storeBtn.style.display = 'block'
+        openBtn.style.display  = 'block'
+        openBtn.href = deepLink
+        openBtn.textContent = fallbackLabel || "Réessayer d'ouvrir l'app"
       }, 2500)
     }
 
-    // Lancer dès que la page est prête
-    if (isIOS || isAndroid) {
-      tryOpenApp()
+    if (type === 'recovery') {
+      emojiEl.textContent = '🔑'
+      titleEl.textContent = 'Réinitialisation du mot de passe'
+      subEl.textContent   = 'Clique ci-dessous pour choisir un nouveau mot de passe.'
+
+      const accessToken  = hParams.get('access_token')  || params.get('access_token')  || ''
+      const refreshToken = hParams.get('refresh_token') || params.get('refresh_token') || ''
+
+      const deepLink = 'bibliopotes://reset-password?access_token='
+        + encodeURIComponent(accessToken)
+        + '&refresh_token='
+        + encodeURIComponent(refreshToken)
+
+      if (isIOS || isAndroid) {
+        tryOpen(deepLink, "Réessayer d'ouvrir l'app")
+      } else {
+        statusEl.textContent = 'Ouvre ce lien sur ton téléphone pour réinitialiser ton mot de passe.'
+      }
+
     } else {
-      // Desktop — afficher directement les boutons store
-      statusEl.textContent = 'Ouvre cette page sur ton téléphone pour rejoindre le groupe.'
-      storeBtnEl.style.display = 'block'
-      storeBtnEl.textContent   = 'Voir sur le Play Store'
+      emojiEl.textContent = '📚'
+      titleEl.textContent = "Tu as été invité sur BiblioPotes"
+      subEl.textContent   = code ? "Code d'invitation : " + code : "Rejoins le groupe de ton ami"
+
+      const deepLink = code ? 'bibliopotes://invite?code=' + code : 'bibliopotes://'
+
+      if (isIOS || isAndroid) {
+        tryOpen(deepLink, "Réessayer d'ouvrir l'app")
+      } else {
+        statusEl.textContent   = 'Ouvre cette page sur ton téléphone pour rejoindre le groupe.'
+        storeBtn.style.display = 'block'
+        storeBtn.textContent   = 'Voir sur le Play Store'
+      }
     }
   </script>
 </body>
